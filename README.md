@@ -69,6 +69,10 @@ This project is built using the T3 stack App with additional features like shadc
 │   │   │   └── base-repository.ts
 │   │   ├── auth.ts
 │   │   ├── db.ts
+│   ├── trpc/ (trpc-api-caller)
+│   │   ├── query-client.ts (trpc api caller that will be used in client components)
+│   │   ├── server.ts (trpc api caller that will be used in server components)
+│   │   └── react.tsx (trpc global provider that will be called on next js layout)
 │   └── env.js (@t3-oss/env-nextjs. please open .env.example for more details)
 ├── drizzle/
 │   └── generated-sql-file
