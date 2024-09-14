@@ -1,0 +1,1 @@
+ALTER TABLE "nextjs-trpc-boilerplate_user" ALTER COLUMN "password" DROP NOT NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE "nextjs-trpc-boilerplate_user" ADD COLUMN "password" varchar(255) NOT NULL;
