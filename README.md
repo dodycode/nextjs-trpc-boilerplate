@@ -34,10 +34,10 @@ This project is built using the T3 stack App with additional features like shadc
 │   │   ├── api/
 │   │   │   └── trpc/
 │   │   │   |   └── [trpc]/
-│   │   │   |       └── route.ts
+│   │   │   |       └── route.ts (the main route api that will do HTTP request to trpc server)
 │   │   │   └── auth/
 │   │   │       └── [...nextAuth]/
-│   │   │           └── route.ts
+│   │   │           └── route.ts (for nextAuth)
 │   │   ├── posts/
 │   │   │   └── page.tsx
 │   │   ├── signin/
