@@ -256,10 +256,7 @@ To use it, ensure you have Docker installed and run:
 ```
 
 ## Demo
-
-<video src="demo.mp4" controls>
-  Check out the demo.mp4 for more details what've been done in this boilerplate.
-</video>
+<video src="https://github.com/user-attachments/assets/40712e19-4cc7-44ed-b408-acda1d9cf470"></video>
 
 ## Contributing
 
