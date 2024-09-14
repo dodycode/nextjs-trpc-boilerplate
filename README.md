@@ -48,7 +48,7 @@ This project is built using the T3 stack App with additional features like shadc
 │   │   └── page.tsx
 │   ├── components/
 │   │   └── ui/
-│   │   │   │   └── shadcn-components-are-here...
+│   │   │   └── shadcn-components-are-here...
 │   ├── server/
 │   │   ├── api/
 │   │   │   ├── routers/
