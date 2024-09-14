@@ -182,7 +182,7 @@ Using npm:
 
 ### Workflow for Schema Changes
 
-1. Make changes to your schema in `drizzle/schema.ts`
+1. Make changes to your schema in `/src/server/db/schema/`
 2. Run `pnpm db:generate` or `npm run db:generate` to create a new migration
 3. Run `pnpm db:push` or `npm run db:push` to apply the changes to your development database
 
