@@ -71,7 +71,7 @@ This project is built using the T3 stack App with additional features like shadc
 │   │   ├── db.ts
 │   ├── trpc/ (trpc client setup)
 │   │   ├── react.tsx (tRPC provider that consumes the shared query-client.ts)
-│   │   ├── server.ts (shared tRPC caller for react server components)
+│   │   ├── server.ts (tRPC caller for server components that consumes the shared query-client.ts)
 │   │   └── query-client.ts (shared query client for http requests to nextjs /api/trpc)
 │   └── env.js (@t3-oss/env-nextjs. please open .env.example for more details)
 ├── drizzle/
