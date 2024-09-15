@@ -69,10 +69,10 @@ This project is built using the T3 stack App with additional features like shadc
 │   │   │   └── base-repository.ts
 │   │   ├── auth.ts
 │   │   ├── db.ts
-│   ├── trpc/ (trpc-api-caller)
-│   │   ├── query-client.ts (trpc api caller that will be used in client components)
-│   │   ├── server.ts (trpc api caller that will be used in server components)
-│   │   └── react.tsx (trpc global provider that will be called on next js layout)
+│   ├── trpc/ (trpc client setup)
+│   │   ├── react.tsx (tRPC provider and caller for client-side usage)
+│   │   ├── server.ts (tRPC caller for server-side usage)
+│   │   └── query-client.ts (shared query client for react.tsx that will do http request to nextjs trpc api route /api/trpc)
 │   └── env.js (@t3-oss/env-nextjs. please open .env.example for more details)
 ├── drizzle/
 │   └── generated-sql-file
@@ -260,6 +260,7 @@ To use it, ensure you have Docker installed and run:
 ```
 
 ## Demo
+
 <video src="https://github.com/user-attachments/assets/40712e19-4cc7-44ed-b408-acda1d9cf470"></video>
 
 ## Contributing
