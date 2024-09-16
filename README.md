@@ -19,6 +19,8 @@ This project is built using the T3 stack App with additional features like shadc
 
 ## Project Structure
 
+![trpc-nextjs](https://github.com/user-attachments/assets/51542592-adc5-422a-a465-d824f529500d)
+
 ```
 .
 ├── src/
