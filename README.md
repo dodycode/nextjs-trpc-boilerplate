@@ -51,7 +51,7 @@ This project is built using the T3 stack App with additional features like shadc
 │   ├── components/
 │   │   └── ui/
 │   │   │   └── shadcn-components-are-here...
-│   ├── server/ (trpc server)
+│   ├── server/ (trpc backend - will use nextjs backend server)
 │   │   ├── api/
 │   │   │   ├── routers/
 │   │   │   │   ├── auth/
