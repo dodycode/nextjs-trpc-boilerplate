@@ -1,7 +1,11 @@
-import NextAuth from "next-auth";
+import type { NextRequest } from "next/server";
 
-import { authOptions } from "@/server/auth";
+import { handlers } from "@/server/auth";
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export const POST = async (req: NextRequest) => {
+  return handlers.POST(req);
+};
+
+export const GET = async (req: NextRequest) => {
+  return handlers.GET(req);
+};

@@ -1,33 +1,29 @@
-import { index, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
-import { createTable } from "@/server/common/utils/pg-table-creator";
-import { sql } from "drizzle-orm";
-import { users } from "./users";
+import { index } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+
+import { createTable } from "@/server/common/utils/pg-table-creator";
+
+import { lifecycleDates } from "../utils/lifecycle-dates";
+import { User } from "./auth/user";
 
 export const posts = createTable(
   "post",
-  {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }).notNull(),
-    content: text("content").notNull(),
-    createdById: varchar("created_by", { length: 255 })
+  (t) => ({
+    id: t.serial("id").primaryKey(),
+    name: t.varchar("name", { length: 256 }).notNull(),
+    content: t.text("content").notNull(),
+    createdById: t
+      .uuid("created_by")
       .notNull()
-      .references(() => users.id),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date(),
-    ),
-  },
+      .references(() => User.id),
+    ...lifecycleDates,
+  }),
   (example) => ({
     createdByIdIdx: index("created_by_idx").on(example.createdById),
     nameIndex: index("name_idx").on(example.name),
   }),
 );
 
-// Schema for inserting a user - can be used to validate API requests
-export const insertSchema = createInsertSchema(posts);
+export const insertPostSchema = createInsertSchema(posts);
 
-// Schema for selecting a user - can be used to validate API responses
-export const selectSchema = createSelectSchema(posts);
+export const selectPostSchema = createSelectSchema(posts);

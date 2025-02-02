@@ -1,6 +1,14 @@
-import { DbConnection } from "@/server/db";
-import { type PgTable, PgUpdateSetSource, PgColumn } from "drizzle-orm/pg-core";
-import { desc, eq, InferInsertModel, InferSelectModel, SQL } from "drizzle-orm";
+import type { PgTable } from "drizzle-orm/pg-core";
+import {
+  desc,
+  eq,
+  type InferInsertModel,
+  type InferSelectModel,
+  type SQL,
+} from "drizzle-orm";
+import type { PgColumn, PgUpdateSetSource } from "drizzle-orm/pg-core";
+
+import type { DbConnection } from "@/server/db/client";
 
 export interface QueryCriteria {
   limit?: number;
@@ -44,6 +52,7 @@ export abstract class BaseRepository<
   }
 
   async findAll(): Promise<InferSelectModel<PG>[]> {
+    // @ts-expect-error
     const query = this.db.select().from(this.schema);
 
     if (this.defaultOrderColumn in this.schema) {
@@ -75,6 +84,7 @@ export abstract class BaseRepository<
     }
     const result = await this.db
       .select()
+      //@ts-expect-error
       .from(this.schema)
       .where(this.getWhereCondition(id));
     if (result.length === 0) {
@@ -93,6 +103,7 @@ export abstract class BaseRepository<
       .set(data)
       .where(this.getWhereCondition(id))
       .returning();
+    //@ts-expect-error
     return result[0] as InferSelectModel<PG>;
   }
 

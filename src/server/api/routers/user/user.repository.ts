@@ -1,17 +1,19 @@
-import { BaseRepository } from "@/server/common/utils/base-repository";
-import { db, type DbConnection } from "@/server/db";
-import { users } from "@/server/db/schema/users";
-import { eq, InferSelectModel } from "drizzle-orm";
+import { eq, type InferSelectModel } from "drizzle-orm";
 
-class UserRepository extends BaseRepository<typeof users, "id"> {
+import type { DbConnection } from "@/server/db/client";
+import { BaseRepository } from "@/server/common/utils/base-repository";
+import { db } from "@/server/db/client";
+import { User } from "@/server/db/schema";
+
+class UserRepository extends BaseRepository<typeof User, "id"> {
   constructor(db: DbConnection) {
-    super(db, users, "id");
+    super(db, User, "id");
   }
 
   // You can add user-specific methods here
   async findByEmail(
     email: string,
-  ): Promise<InferSelectModel<typeof users> | null> {
+  ): Promise<InferSelectModel<typeof User> | null> {
     const result = await this.db
       .select()
       .from(this.schema)

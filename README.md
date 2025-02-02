@@ -1,16 +1,18 @@
-# Next JS T3 Stack App with Repository Pattern
+# Next JS Boilerplate with tRPC + Repository Design Pattern
 
-This project is built using the T3 stack App with additional features like shadcn UI components and a repository design pattern for tRPC routers.
+A customized version of the [T3 Stack App](https://create.t3.gg/) that I use in my daily work.
+
+Feel free to fork and customize it to suit your needs.
 
 ## Features
 
-- **Next.js 14+**: React framework with App Router for building web applications
+- **Next.js 15**: Next 15 with Server Actions & React 19
 - **TypeScript**: For type-safe JavaScript development
 - **tRPC**: End-to-end typesafe APIs
 - **Drizzle ORM**: TypeScript ORM for SQL databases
-- **NextAuth.js**: Authentication for Next.js
+- **Auth.JS (formerly known as NextAuth.js)**: Authentication for Next.js
 - **Zod**: Runtime type checking and validation
-- **shadcn/ui**: Beautifully designed components built with Radix UI and Tailwind CSS
+- **shadcn/ui**: Beautifully designed components built with Radix UI and Tailwind v4!
 - **Repository Pattern**: For clean separation of data access logic
 - **Service Layer**: Business logic abstraction
 - **Tailwind CSS**: Utility-first CSS framework
@@ -20,66 +22,64 @@ This project is built using the T3 stack App with additional features like shadc
 ## Project Structure
 
 ![trpc-nextjs](https://github.com/user-attachments/assets/51542592-adc5-422a-a465-d824f529500d)
-
-```
 .
 ├── src/
-│   ├── app/
-│   │   ├── _components/
-│   │   │   ├── discord-login-button.tsx
-│   │   │   ├── latest-posts.tsx
-│   │   │   ├── signin-form.tsx
-│   │   │   ├── signup-form.tsx
-│   │   │   └── navbar/
-│   │   │   |   ├── navbar-wrapper.tsx (server component that will consumes session from the server)
-│   │   │   |   └── navbar.tsx
-│   │   ├── api/
-│   │   │   └── trpc/
-│   │   │   |   └── [trpc]/
-│   │   │   |       └── route.ts (the main route api that will do HTTP request to trpc server)
-│   │   │   └── auth/
-│   │   │       └── [...nextAuth]/
-│   │   │           └── route.ts (for nextAuth)
-│   │   ├── posts/
-│   │   │   └── page.tsx
-│   │   ├── signin/
-│   │   │   └── page.tsx
-│   │   ├── signup/
-│   │   │   └── page.tsx
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/
-│   │   └── ui/
-│   │   │   └── shadcn-components-are-here...
-│   ├── server/ (trpc backend - will use nextjs backend server)
-│   │   ├── api/
-│   │   │   ├── routers/
-│   │   │   │   ├── auth/
-│   │   │   │   |   └── auth.service.ts
-│   │   │   │   ├── post/
-│   │   │   │   |   ├── post.repository.ts
-│   │   │   │   |   ├── post.service.ts
-│   │   │   │   |   └── post.router.ts
-│   │   │   │   ├── user/
-│   │   │   │   |   ├── user.repository.ts
-│   │   │   │   |   ├── user.service.ts
-│   │   │   │   |   └── user.router.ts
-│   │   │   │   └── your-trpc-route/
-│   │   │   ├── root.ts
-│   │   │   └── trpc.ts
-│   │   ├── common/ (utils for your trpc service or repository)
-│   │   │   └── base-repository.ts
-│   │   ├── auth.ts
-│   │   ├── db.ts
-│   ├── trpc/ (trpc client setup)
-│   │   ├── react.tsx (tRPC provider that consumes the shared query-client.ts)
-│   │   ├── server.ts (the entrypoint for using tRPC in Server Components)
-│   │   └── query-client.ts (the query client that tRPC uses to cache and deduplicate data in client components)
-│   └── env.js (@t3-oss/env-nextjs. please open .env.example for more details)
+│ ├── app/
+│ │ ├── \_components/
+│ │ │ ├── discord-login-button.tsx
+│ │ │ ├── latest-posts.tsx
+│ │ │ ├── signin-form.tsx
+│ │ │ ├── signup-form.tsx
+│ │ │ └── navbar/
+│ │ │ | ├── navbar-wrapper.tsx (server component that will consumes session from the server)
+│ │ │ | └── navbar.tsx
+│ │ ├── api/
+│ │ │ └── trpc/
+│ │ │ | └── [trpc]/
+│ │ │ | └── route.ts (the main route api that will do HTTP request to trpc server)
+│ │ │ └── auth/
+│ │ │ └── [...nextAuth]/
+│ │ │ └── route.ts (for nextAuth)
+│ │ ├── posts/
+│ │ │ └── page.tsx
+│ │ ├── signin/
+│ │ │ └── page.tsx
+│ │ ├── signup/
+│ │ │ └── page.tsx
+│ │ ├── layout.tsx
+│ │ └── page.tsx
+│ ├── components/
+│ │ └── ui/
+│ │ │ └── shadcn-components-are-here...
+│ ├── server/ (trpc backend - will use nextjs backend server)
+│ │ ├── api/
+│ │ │ ├── routers/
+│ │ │ │ ├── auth/
+│ │ │ │ | └── auth.service.ts
+│ │ │ │ ├── post/
+│ │ │ │ | ├── post.repository.ts
+│ │ │ │ | ├── post.service.ts
+│ │ │ │ | └── post.router.ts
+│ │ │ │ ├── user/
+│ │ │ │ | ├── user.repository.ts
+│ │ │ │ | ├── user.service.ts
+│ │ │ │ | └── user.router.ts
+│ │ │ │ └── your-trpc-route/
+│ │ │ ├── root.ts
+│ │ │ └── trpc.ts
+│ │ ├── common/ (utils for your trpc service or repository)
+│ │ │ └── base-repository.ts
+│ │ ├── auth.ts
+│ │ ├── db.ts
+│ ├── trpc/ (trpc client setup)
+│ │ ├── react.tsx (tRPC provider that consumes the shared query-client.ts)
+│ │ ├── server.ts (the entrypoint for using tRPC in Server Components)
+│ │ └── query-client.ts (the query client that tRPC uses to cache and deduplicate data in client components)
+│ └── env.js (@t3-oss/env-nextjs. please open .env.example for more details)
 ├── drizzle/
-│   └── generated-sql-file
+│ └── generated-sql-file
 ├── public/
-│   └── favicon.ico
+│ └── favicon.ico
 ├── drizzle.config.ts
 ├── .env.example
 ├── .eslintrc.json
@@ -94,77 +94,98 @@ This project is built using the T3 stack App with additional features like shadc
 ├── start-database.sh
 ├── tailwind.config.ts
 └── tsconfig.json
+
 ```
 
 ## Getting Started
 
 1. Clone the repository:
 
-   ```
-   git clone https://github.com/dodycode/nextjs-trpc-boilerplate.git
-   cd nextjs-trpc-boilerplate
-   ```
+```
+
+git clone https://github.com/dodycode/nextjs-trpc-boilerplate.git
+cd nextjs-trpc-boilerplate
+
+```
 
 2. Install dependencies:
-   Using pnpm (recommended):
+Using pnpm (recommended):
 
-   ```
-   pnpm install
-   ```
+```
 
-   Or using npm:
+pnpm install
 
-   ```
-   npm install
-   ```
+```
+
+Or using npm:
+
+```
+
+npm install
+
+```
 
 3. Set up your environment variables:
 
-   - Copy `.env.example` to `.env`
-   - Update the necessary variables in `.env`
+- Copy `.env.example` to `.env`
+- Update the necessary variables in `.env`
 
 4. Set up the database:
-   First, start the database container:
+First, start the database container:
 
-   ```
-   ./start-database.sh
-   ```
+```
 
-   Then, generate the database schema:
-   Using pnpm:
+./start-database.sh
 
-   ```
-   pnpm db:generate
-   ```
+```
 
-   Or using npm:
+Then, generate the database schema:
+Using pnpm:
 
-   ```
-   npm run db:generate
-   ```
+```
 
-   Now, create the initial migration and apply it:
-   Using pnpm:
+pnpm db:generate
 
-   ```
-   pnpm db:migrate
-   ```
+```
 
-   Or using npm:
+Or using npm:
 
-   ```
-   npm run db:migrate
-   ```
+```
+
+npm run db:generate
+
+```
+
+Now, create the initial migration and apply it:
+Using pnpm:
+
+```
+
+pnpm db:migrate
+
+```
+
+Or using npm:
+
+```
+
+npm run db:migrate
+
+```
 
 5. Start the development server:
-   Using pnpm:
-   ```
-   pnpm dev
-   ```
-   Or using npm:
-   ```
-   npm run dev
-   ```
+Using pnpm:
+```
+
+pnpm dev
+
+```
+Or using npm:
+```
+
+npm run dev
+
+````
 
 The server should now be running on `http://localhost:3000`.
 
@@ -213,18 +234,18 @@ import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { yourService } from "./yourmodel.service";
 
 export const yourRouter = createTRPCRouter({
-  getData: publicProcedure.query(async () => {
-    const service = new YourService();
-    return service.getData();
-  }),
+getData: publicProcedure.query(async () => {
+ const service = new YourService();
+ return service.getData();
+}),
 });
-```
+````
 
 You can check my user and post router as reference.
 
 ## Authentication
 
-This project uses NextAuth.js for authentication. Configure your providers in `src/server/auth.ts`.
+This project uses Auth.js for authentication. Configure your providers in `src/server/auth/config.ts`.
 
 ## UI Components
 
@@ -260,6 +281,14 @@ To use it, ensure you have Docker installed and run:
 ```
 ./start-database.sh
 ```
+
+## Preview
+
+- Auth Pages
+  ![Image](https://github.com/user-attachments/assets/acb4176e-aa65-4d23-be27-e0603197224a)
+
+- Protected Pages
+  ![Image](https://github.com/user-attachments/assets/14bfdfa5-f70b-461b-aa20-c1aeabec5d49)
 
 ## Contributing
 

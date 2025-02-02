@@ -1,4 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+
 import { userService } from "./user.service";
 
 export const userRouter = createTRPCRouter({

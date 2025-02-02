@@ -1,6 +1,8 @@
-import { posts } from "@/server/db/schema/posts";
+import type { InferInsertModel, InferSelectModel } from "drizzle-orm";
+
+import type { posts } from "@/server/db/schema/posts";
+
 import { postRepository } from "./post.repository";
-import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 
 class PostService {
   public async getLatestPost() {

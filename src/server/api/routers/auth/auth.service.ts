@@ -1,15 +1,12 @@
-import { insertSchema, users } from "@/server/db/schema/users";
-import { InferInsertModel } from "drizzle-orm";
-import { z } from "zod";
+import type { InferInsertModel } from "drizzle-orm";
+
 import { userService } from "@/server/api/routers/user/user.service";
+import type { User } from "@/server/db/schema";
+import { signInSchema, signUpSchema } from "@/validators/auth";
 
 class AuthService {
-  public async getSignUpUser(credentials: InferInsertModel<typeof users>) {
-    const signupInput = insertSchema
-      .extend({
-        action: z.enum(["signin", "signup"]),
-      })
-      .safeParse(credentials);
+  public async getSignUpUser(credentials: InferInsertModel<typeof User>) {
+    const signupInput = signUpSchema.safeParse(credentials);
 
     if (!signupInput.success) {
       throw new Error("Invalid sign up credentials", signupInput.error);
@@ -27,16 +24,9 @@ class AuthService {
   }
 
   public async getSignInUser(
-    credentials: Omit<InferInsertModel<typeof users>, "name">,
+    credentials: Omit<InferInsertModel<typeof User>, "name">,
   ) {
-    const signinInput = insertSchema
-      .omit({
-        name: true,
-      })
-      .extend({
-        action: z.enum(["signin", "signup"]),
-      })
-      .safeParse(credentials);
+    const signinInput = signInSchema.safeParse(credentials);
 
     if (!signinInput.success) {
       throw new Error("Invalid sign up credentials", signinInput.error);
