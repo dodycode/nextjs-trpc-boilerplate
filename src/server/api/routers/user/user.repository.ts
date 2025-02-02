@@ -1,4 +1,5 @@
-import { eq, type InferSelectModel } from "drizzle-orm";
+import type { InferSelectModel } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import type { DbConnection } from "@/server/db/client";
 import { BaseRepository } from "@/server/common/utils/base-repository";

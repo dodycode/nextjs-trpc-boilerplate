@@ -1,7 +1,7 @@
 import type { InferInsertModel } from "drizzle-orm";
 
-import { userService } from "@/server/api/routers/user/user.service";
 import type { User } from "@/server/db/schema";
+import { userService } from "@/server/api/routers/user/user.service";
 import { signInSchema, signUpSchema } from "@/validators/auth";
 
 class AuthService {
