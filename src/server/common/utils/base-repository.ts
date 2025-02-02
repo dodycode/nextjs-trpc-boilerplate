@@ -1,12 +1,6 @@
-import type { PgTable } from "drizzle-orm/pg-core";
-import {
-  desc,
-  eq,
-  type InferInsertModel,
-  type InferSelectModel,
-  type SQL,
-} from "drizzle-orm";
-import type { PgColumn, PgUpdateSetSource } from "drizzle-orm/pg-core";
+import type { InferInsertModel, InferSelectModel, SQL } from "drizzle-orm";
+import type { PgColumn, PgTable, PgUpdateSetSource } from "drizzle-orm/pg-core";
+import { desc, eq } from "drizzle-orm";
 
 import type { DbConnection } from "@/server/db/client";
 

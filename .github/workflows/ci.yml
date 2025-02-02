@@ -21,11 +21,15 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup
-        uses: ./setup
+        uses: ./.github/setup
 
-      - name: Copy env
-        shell: bash
-        run: cp .env.example .env
+      - name: Create .env file
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env
+          echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
+          echo "DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}" >> .env
+          echo "DISCORD_CLIENT_SECRET=${{ secrets.DISCORD_CLIENT_SECRET }}" >> .env
 
       - name: Lint
         run: pnpm lint
@@ -36,7 +40,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup
-        uses: ./setup
+        uses: ./.github/setup
 
       - name: Format
         run: pnpm format
@@ -47,7 +51,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup
-        uses: ./setup
+        uses: ./.github/setup
 
       - name: Typecheck
         run: pnpm typecheck

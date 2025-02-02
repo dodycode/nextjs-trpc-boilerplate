@@ -2,8 +2,8 @@
 
 import { useFormContext } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
 import type { SignInValues, SignUpValues } from "@/validators/auth";
+import { Button } from "@/components/ui/button";
 
 import { SignInWithDiscordButton } from "./sign-in-with-discord-btn";
 
