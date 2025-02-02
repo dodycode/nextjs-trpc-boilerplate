@@ -261,10 +261,6 @@ To use it, ensure you have Docker installed and run:
 ./start-database.sh
 ```
 
-## Demo
-
-<video src="https://github.com/user-attachments/assets/40712e19-4cc7-44ed-b408-acda1d9cf470"></video>
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
