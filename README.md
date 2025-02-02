@@ -22,80 +22,6 @@ Feel free to fork and customize it to suit your needs.
 ## Project Structure
 
 ![trpc-nextjs](https://github.com/user-attachments/assets/51542592-adc5-422a-a465-d824f529500d)
-.
-├── src/
-│ ├── app/
-│ │ ├── \_components/
-│ │ │ ├── discord-login-button.tsx
-│ │ │ ├── latest-posts.tsx
-│ │ │ ├── signin-form.tsx
-│ │ │ ├── signup-form.tsx
-│ │ │ └── navbar/
-│ │ │ | ├── navbar-wrapper.tsx (server component that will consumes session from the server)
-│ │ │ | └── navbar.tsx
-│ │ ├── api/
-│ │ │ └── trpc/
-│ │ │ | └── [trpc]/
-│ │ │ | └── route.ts (the main route api that will do HTTP request to trpc server)
-│ │ │ └── auth/
-│ │ │ └── [...nextAuth]/
-│ │ │ └── route.ts (for nextAuth)
-│ │ ├── posts/
-│ │ │ └── page.tsx
-│ │ ├── signin/
-│ │ │ └── page.tsx
-│ │ ├── signup/
-│ │ │ └── page.tsx
-│ │ ├── layout.tsx
-│ │ └── page.tsx
-│ ├── components/
-│ │ └── ui/
-│ │ │ └── shadcn-components-are-here...
-│ ├── server/ (trpc backend - will use nextjs backend server)
-│ │ ├── api/
-│ │ │ ├── routers/
-│ │ │ │ ├── auth/
-│ │ │ │ | └── auth.service.ts
-│ │ │ │ ├── post/
-│ │ │ │ | ├── post.repository.ts
-│ │ │ │ | ├── post.service.ts
-│ │ │ │ | └── post.router.ts
-│ │ │ │ ├── user/
-│ │ │ │ | ├── user.repository.ts
-│ │ │ │ | ├── user.service.ts
-│ │ │ │ | └── user.router.ts
-│ │ │ │ └── your-trpc-route/
-│ │ │ ├── root.ts
-│ │ │ └── trpc.ts
-│ │ ├── common/ (utils for your trpc service or repository)
-│ │ │ └── base-repository.ts
-│ │ ├── auth.ts
-│ │ ├── db.ts
-│ ├── trpc/ (trpc client setup)
-│ │ ├── react.tsx (tRPC provider that consumes the shared query-client.ts)
-│ │ ├── server.ts (the entrypoint for using tRPC in Server Components)
-│ │ └── query-client.ts (the query client that tRPC uses to cache and deduplicate data in client components)
-│ └── env.js (@t3-oss/env-nextjs. please open .env.example for more details)
-├── drizzle/
-│ └── generated-sql-file
-├── public/
-│ └── favicon.ico
-├── drizzle.config.ts
-├── .env.example
-├── .eslintrc.json
-├── .gitignore
-├── docker-compose.yml
-├── next-env.d.ts
-├── next.config.mjs
-├── package.json
-├── postcss.config.cjs
-├── prettier.config.cjs
-├── README.md
-├── start-database.sh
-├── tailwind.config.ts
-└── tsconfig.json
-
-```
 
 ## Getting Started
 
@@ -109,7 +35,7 @@ cd nextjs-trpc-boilerplate
 ```
 
 2. Install dependencies:
-Using pnpm (recommended):
+   Using pnpm (recommended):
 
 ```
 
@@ -131,7 +57,7 @@ npm install
 - Update the necessary variables in `.env`
 
 4. Set up the database:
-First, start the database container:
+   First, start the database container:
 
 ```
 
@@ -174,18 +100,21 @@ npm run db:migrate
 ```
 
 5. Start the development server:
-Using pnpm:
+   Using pnpm:
+
 ```
 
 pnpm dev
 
 ```
+
 Or using npm:
+
 ```
 
 npm run dev
 
-````
+```
 
 The server should now be running on `http://localhost:3000`.
 
@@ -231,15 +160,16 @@ Example usage in a tRPC router:
 
 ```typescript
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+
 import { yourService } from "./yourmodel.service";
 
 export const yourRouter = createTRPCRouter({
-getData: publicProcedure.query(async () => {
- const service = new YourService();
- return service.getData();
-}),
+  getData: publicProcedure.query(async () => {
+    const service = new YourService();
+    return service.getData();
+  }),
 });
-````
+```
 
 You can check my user and post router as reference.
 
