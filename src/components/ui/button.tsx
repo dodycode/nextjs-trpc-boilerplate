@@ -1,87 +1,110 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
-        icon: "h-9 w-9",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  },
-);
+import type { ButtonBaseProps } from "./button-base";
+import type { IconType } from "./icons";
+import { ButtonBase } from "./button-base";
+import { Icon } from "./icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-  isLoading?: boolean;
-  loadingText?: string;
+export { buttonVariants, type ButtonBaseProps } from "./button-base";
+
+interface ButtonProps extends ButtonBaseProps {
+  tooltipText?: string;
+  tooltipSide?: "top" | "bottom" | "left" | "right";
+  tooltipDelayDuration?: number;
+  RightIcon?: IconType;
+  rightIconClassName?: string;
+  LeftIcon?: IconType;
+  leftIconClassName?: string;
 }
+
+const ButtonContent = ({
+  isLoading,
+  children,
+  RightIcon,
+  rightIconClassName,
+  LeftIcon,
+  leftIconClassName,
+}: Pick<
+  ButtonProps,
+  | "LeftIcon"
+  | "RightIcon"
+  | "children"
+  | "isLoading"
+  | "leftIconClassName"
+  | "rightIconClassName"
+>) => (
+  <>
+    {LeftIcon && !isLoading ? (
+      <Icon type={LeftIcon} className={cn("size-4", leftIconClassName)} />
+    ) : null}
+
+    {isLoading ? <Icon type="spinner" className="size-4" /> : null}
+
+    {children}
+
+    {RightIcon && !isLoading ? (
+      <Icon
+        type={RightIcon}
+        className={cn("size-4", { "ml-2": !!children }, rightIconClassName)}
+      />
+    ) : null}
+  </>
+);
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      className,
-      variant,
-      size,
-      asChild = false,
-      isLoading = false,
-      loadingText,
+      tooltipText,
+      tooltipSide = "top",
+      tooltipDelayDuration,
+      RightIcon,
+      rightIconClassName,
+      LeftIcon,
+      leftIconClassName,
       children,
-      disabled,
-      ...props
+      ...buttonBaseProps
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "button";
-    return (
-      <Comp
-        className={cn(
-          buttonVariants({ variant, size, className }),
-          isLoading && "relative",
-          isLoading &&
-            variant === "outline" &&
-            "bg-gray-100! dark:bg-gray-800!",
-        )}
-        ref={ref}
-        disabled={disabled || isLoading}
-        {...props}
-      >
-        <span className={cn(isLoading && "invisible")}>{children}</span>
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
-            {loadingText && <span className="ml-2">{loadingText}</span>}
-          </div>
-        )}
-      </Comp>
+    const button = (
+      <ButtonBase ref={ref} {...buttonBaseProps}>
+        <ButtonContent
+          LeftIcon={LeftIcon}
+          RightIcon={RightIcon}
+          isLoading={buttonBaseProps.isLoading}
+          rightIconClassName={rightIconClassName}
+          leftIconClassName={leftIconClassName}
+        >
+          {children}
+        </ButtonContent>
+      </ButtonBase>
     );
+
+    if (tooltipText) {
+      return (
+        <TooltipProvider>
+          <Tooltip delayDuration={tooltipDelayDuration}>
+            <TooltipTrigger asChild>{button}</TooltipTrigger>
+            <TooltipContent side={tooltipSide}>
+              <p>{tooltipText}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      );
+    }
+
+    return button;
   },
 );
+
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+export { Button, type ButtonProps };

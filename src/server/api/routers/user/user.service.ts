@@ -1,6 +1,6 @@
-import { userRepository } from "./user.repository";
-
 import { compare, hash } from "bcrypt";
+
+import { userRepository } from "./user.repository";
 
 class UserService {
   public async signIn(
@@ -67,8 +67,6 @@ class UserService {
 
     return await userRepository.findByEmail(email);
   }
-
-  public async authenticate() {}
 }
 
 export const userService = new UserService();

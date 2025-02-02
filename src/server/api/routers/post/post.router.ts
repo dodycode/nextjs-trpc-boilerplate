@@ -1,11 +1,13 @@
+import { z } from "zod";
+
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import { insertPostSchema } from "@/server/db/schema/posts";
+
 import { postService } from "./post.service";
-import { insertSchema } from "@/server/db/schema/posts";
-import { z } from "zod";
 
 export const postRouter = createTRPCRouter({
   latestPost: publicProcedure.query(async () => {
@@ -18,16 +20,18 @@ export const postRouter = createTRPCRouter({
     return post;
   }),
 
-  create: protectedProcedure.input(insertSchema).mutation(async ({ input }) => {
-    const post = await postService.createNewPost(input);
-    return post;
-  }),
+  create: protectedProcedure
+    .input(insertPostSchema)
+    .mutation(async ({ input }) => {
+      const post = await postService.createNewPost(input);
+      return post;
+    }),
 
   update: protectedProcedure
     .input(
       z.object({
         id: z.number(),
-        data: insertSchema.partial(),
+        data: insertPostSchema.partial(),
       }),
     )
     .mutation(async ({ input }) => {

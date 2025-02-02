@@ -38,5 +38,5 @@
     "**/*.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "src/app/page.bak"]
+  "exclude": ["node_modules"]
 }
